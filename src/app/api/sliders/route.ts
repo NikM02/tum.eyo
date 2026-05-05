@@ -4,8 +4,12 @@ import { NextRequest, NextResponse } from 'next/server'
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const sliders = await prisma.slider.findMany({ orderBy: { order: 'asc' } })
-  return NextResponse.json(sliders)
+  try {
+    const sliders = await prisma.slider.findMany({ orderBy: { order: 'asc' } })
+    return NextResponse.json(sliders)
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message || 'Unknown error' }, { status: 500 })
+  }
 }
 
 export async function POST(req: NextRequest) {
