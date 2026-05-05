@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import {
   Megaphone, MonitorPlay, Code2, Cpu, Globe, Palette,
   Zap, BarChart2, Shield, Camera, PenTool, Layers,
@@ -20,12 +20,12 @@ const ICON_MAP: Record<string, any> = {
   Share2, TrendingUp, Search, Mail, Video, Star, Settings, Briefcase
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1 } }
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
 }
