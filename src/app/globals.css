@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-page-bg: #FFFFFF;
+  --color-card: #F8F9FA;
+  --color-card-hover: #F1F3F5;
+  --color-accent: #E1306C;
+  --color-accent-hover: #C13584;
+  --color-accent-gold: #F56040;
+  --color-accent-purple: #833AB4;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-border: #E5E7EB;
+
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+}
+
+.dark {
+  --color-page-bg: #000000;
+  --color-card: #111111;
+  --color-card-hover: #1A1A1A;
+  --color-accent: #E1306C;
+  --color-accent-hover: #C13584;
+  --color-accent-gold: #F56040;
+  --color-accent-purple: #833AB4;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #AAAAAA;
+  --color-border: #222222;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-page-bg);
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, var(--color-accent-gold), var(--color-accent), var(--color-accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-accent {
+  background: linear-gradient(45deg, var(--color-accent-gold), var(--color-accent), var(--color-accent-purple));
+}
+
+.glass-card {
+  background: rgba(var(--color-card), 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+}
+
+.dark .glass-card {
+  background: rgba(17, 17, 17, 0.7);
+}
+
+.hover-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px -10px rgba(225, 48, 108, 0.15);
+  border-color: rgba(225, 48, 108, 0.3);
+}
+
+/* Swiper custom styles */
+.swiper-pagination-bullet {
+  background: var(--color-text-primary) !important;
+  opacity: 0.3 !important;
+}
+.swiper-pagination-bullet-active {
+  background: var(--color-accent) !important;
+  opacity: 1 !important;
+}
+.swiper-button-next, .swiper-button-prev {
+  display: none !important;
+}

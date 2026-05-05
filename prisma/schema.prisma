@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Slider {
+  id        Int      @id @default(autoincrement())
+  title     String
+  subtitle  String   @default("")
+  imageUrl  String
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model About {
+  id          Int      @id @default(autoincrement())
+  heading     String
+  description String
+  imageUrl    String
+  stat1Label  String   @default("")
+  stat1Value  String   @default("")
+  stat2Label  String   @default("")
+  stat2Value  String   @default("")
+  stat3Label  String   @default("")
+  stat3Value  String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Portfolio {
+  id        Int      @id @default(autoincrement())
+  title     String
+  category  String   @default("")
+  imageUrl  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FAQ {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  icon        String   @default("Cpu")
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model ContactInfo {
+  id            Int      @id @default(autoincrement())
+  heading       String   @default("Let's Build Something Amazing Together")
+  subtitle      String   @default("Ready to transform your digital presence? Reach out to us today.")
+  email         String   @default("hello@tum.eyo")
+  phone         String   @default("+1 (234) 567-890")
+  instagramUrl  String   @default("https://instagram.com/tum.eyo")
+  linkedinUrl   String   @default("https://linkedin.com/company/tumeyo")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

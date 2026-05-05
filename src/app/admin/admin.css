@@ -1,0 +1,35 @@
+.admin-theme {
+  --color-sidebar: #0f172a;
+  --color-sidebar-hover: #1e293b;
+  --color-card: #1e293b;
+  --color-card-hover: #334155;
+  --color-page-bg: #0f172a;
+  --color-accent: #f97316;
+  --color-accent-hover: #fb923c;
+  --color-danger: #ef4444;
+  --color-danger-hover: #f87171;
+  --color-success: #22c55e;
+  --color-muted: #94a3b8;
+  --color-border: #334155;
+  --color-input-bg: #0f172a;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+
+  background-color: var(--color-page-bg);
+  color: #f1f5f9;
+  font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+.admin-theme ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-theme ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.admin-theme ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
