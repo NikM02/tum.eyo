@@ -14,7 +14,9 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   const data = await req.json()
-  const { id, createdAt, updatedAt, ...rest } = data
+  const { id, ...rest } = data
+  delete rest.createdAt
+  delete rest.updatedAt
   const service = await prisma.service.update({ where: { id }, data: rest })
   return NextResponse.json(service)
 }

@@ -10,6 +10,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
     const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
@@ -53,7 +54,7 @@ export default function Navbar() {
             </button>
           )}
           <a href="#contact" className="bg-text-primary text-page-bg px-5 py-2 text-xs font-bold uppercase tracking-wider hover:opacity-80 transition-opacity" style={{ borderRadius: '10px' }}>
-            Let's Talk
+            Let&apos;s Talk
           </a>
         </div>
 
@@ -83,7 +84,7 @@ export default function Navbar() {
           ))}
           <div className="pt-4 flex justify-center">
              <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="w-full text-center bg-text-primary text-page-bg px-5 py-3 text-xs font-bold uppercase tracking-wider hover:opacity-80 transition-opacity" style={{ borderRadius: '10px' }}>
-               Let's Talk
+               Let&apos;s Talk
              </a>
           </div>
         </div>

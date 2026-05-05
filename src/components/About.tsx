@@ -1,7 +1,19 @@
 'use client'
 import { motion } from 'framer-motion'
 
-export default function About({ data }: { data: any }) {
+export interface AboutData {
+  imageUrl?: string;
+  heading?: string;
+  description?: string;
+  stat1Value?: string;
+  stat1Label?: string;
+  stat2Value?: string;
+  stat2Label?: string;
+  stat3Value?: string;
+  stat3Label?: string;
+}
+
+export default function About({ data }: { data: AboutData | null }) {
   if (!data) return null
 
   return (
@@ -18,6 +30,7 @@ export default function About({ data }: { data: any }) {
             className="relative order-2 lg:order-1"
           >
             <div className="rounded-2xl overflow-hidden aspect-square relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={data.imageUrl} alt="About tum.eyo" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700" />
             </div>
             {/* Minimal accent */}

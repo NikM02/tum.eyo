@@ -38,6 +38,7 @@ export default function ImageUploader({ value, onChange, label = 'Image' }: Imag
       <label className="block text-sm font-medium text-muted mb-2">{label}</label>
       {value && (
         <div className="relative mb-3 rounded-lg overflow-hidden border border-border">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={value.startsWith('http') ? value : value} alt="Preview" className="w-full h-40 object-cover" />
           <button
             onClick={() => onChange('')}

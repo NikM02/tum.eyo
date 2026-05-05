@@ -13,6 +13,7 @@ export default function PortfolioPage() {
   const [loading, setLoading] = useState(true)
 
   const load = async () => { setLoading(true); const r = await fetch('/api/portfolio'); const d = await r.json(); setItems(Array.isArray(d)?d:[]); setLoading(false) }
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { load() }, [])
 
   const save = async () => {

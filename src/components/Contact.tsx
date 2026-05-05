@@ -65,7 +65,7 @@ export default function Contact({ info }: { info?: ContactInfo | null }) {
         <CheckCircle2 size={20} className="shrink-0 text-green-400" />
         <div>
           <p className="text-sm font-bold">Request Submitted!</p>
-          <p className="text-xs opacity-70">We'll get back to you shortly.</p>
+          <p className="text-xs opacity-70">We&apos;ll get back to you shortly.</p>
         </div>
       </div>
 

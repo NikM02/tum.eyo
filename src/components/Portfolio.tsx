@@ -3,8 +3,10 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, X } from 'lucide-react'
 
-export default function Portfolio({ items }: { items: any[] }) {
-  const [selectedItem, setSelectedItem] = useState<any>(null)
+export interface PortfolioItem { id: number; title: string; category: string; imageUrl?: string; description?: string }
+
+export default function Portfolio({ items }: { items: PortfolioItem[] }) {
+  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
 
   if (!items || items.length === 0) return null
 
@@ -15,7 +17,7 @@ export default function Portfolio({ items }: { items: any[] }) {
           <div className="max-w-2xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-text-primary">Recent Projects</h2>
             <p className="text-base text-text-secondary font-light">
-              A glimpse into some of the successful digital transformations we've delivered for our clients.
+              A glimpse into some of the successful digital transformations we&apos;ve delivered for our clients.
             </p>
           </div>
           <button className="hidden md:block shrink-0 px-6 py-2 text-xs uppercase tracking-widest font-bold border border-border text-text-primary hover:bg-text-primary hover:text-page-bg transition-colors" style={{ borderRadius: '10px' }}>
@@ -84,6 +86,7 @@ export default function Portfolio({ items }: { items: any[] }) {
               className="w-full max-w-5xl aspect-video rounded-2xl overflow-hidden relative"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={selectedItem.imageUrl} alt={selectedItem.title} className="w-full h-full object-cover" />
               <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 to-transparent">
                 <div className="text-white/80 font-medium text-xs tracking-widest uppercase mb-2">

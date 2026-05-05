@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 
-export default function FAQ({ faqs }: { faqs: any[] }) {
+export default function FAQ({ faqs }: { faqs: { id: number; question: string; answer: string }[] }) {
   const [openId, setOpenId] = useState<number | null>(faqs?.[0]?.id || null)
 
   if (!faqs || faqs.length === 0) return null

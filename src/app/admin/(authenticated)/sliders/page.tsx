@@ -28,6 +28,7 @@ export default function SlidersPage() {
     setLoading(false)
   }
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { load() }, [])
 
   const save = async () => {
@@ -112,7 +113,10 @@ export default function SlidersPage() {
               <div key={item.id} className="bg-card rounded-xl border border-border p-4 flex items-center gap-4 hover:border-accent/20 transition-colors">
                 <GripVertical size={18} className="text-muted/50" />
                 {item.imageUrl && (
-                  <img src={item.imageUrl} alt={item.title} className="w-32 h-20 object-cover rounded-lg" />
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={item.imageUrl} alt={item.title} className="w-32 h-20 object-cover rounded-lg" />
+                  </>
                 )}
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-white truncate">{item.title}</h3>

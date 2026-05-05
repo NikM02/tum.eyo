@@ -6,7 +6,7 @@ import 'swiper/css/effect-fade'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-export default function HeroSlider({ slides }: { slides: any[] }) {
+export default function HeroSlider({ slides }: { slides: { id: number; imageUrl?: string; title?: string; subtitle?: string; buttonText?: string; buttonLink?: string; }[] }) {
   if (!slides || slides.length === 0) return null
 
   const fallbackImage = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop';

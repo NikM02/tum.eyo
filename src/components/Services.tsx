@@ -14,7 +14,7 @@ const FALLBACK_SERVICES = [
   { id: 4, icon: 'Cpu', title: 'Automation', description: 'Streamline your operations with intelligent automation solutions that save time, reduce errors, and scale your business.' },
 ]
 
-const ICON_MAP: Record<string, any> = {
+const ICON_MAP: Record<string, React.ElementType> = {
   Megaphone, MonitorPlay, Code2, Cpu, Globe, Palette,
   Zap, BarChart2, Shield, Camera, PenTool, Layers,
   Share2, TrendingUp, Search, Mail, Video, Star, Settings, Briefcase
@@ -30,7 +30,7 @@ const itemVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
 }
 
-export default function Services({ services }: { services?: any[] }) {
+export default function Services({ services }: { services?: { id: number; icon: string; title: string; description: string }[] }) {
   const items = (services && services.length > 0) ? services : FALLBACK_SERVICES
 
   return (
