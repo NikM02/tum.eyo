@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const faqs = await prisma.fAQ.findMany({ orderBy: { order: 'asc' } })
   return NextResponse.json(faqs)
