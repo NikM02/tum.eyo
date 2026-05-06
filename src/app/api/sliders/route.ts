@@ -1,20 +1,18 @@
-import { prisma } from '@/lib/prisma'
+import { supabase } from '@/lib/supabase'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  try {
-    const sliders = await prisma.slider.findMany({ orderBy: { order: 'asc' } })
-    return NextResponse.json(sliders)
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message || 'Unknown error' }, { status: 500 })
-  }
+  const { data, error } = await supabase.from('Slider').select('*').order('order', { ascending: true })
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
 export async function POST(req: NextRequest) {
   const data = await req.json()
-  const slider = await prisma.slider.create({ data })
+  const { data: slider, error } = await supabase.from('Slider').insert([data]).select().single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(slider)
 }
 
@@ -23,13 +21,15 @@ export async function PUT(req: NextRequest) {
   const { id, ...rest } = data
   delete rest.createdAt
   delete rest.updatedAt
-  const slider = await prisma.slider.update({ where: { id }, data: rest })
+  const { data: slider, error } = await supabase.from('Slider').update(rest).eq('id', id).select().single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(slider)
 }
 
 export async function DELETE(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const id = parseInt(searchParams.get('id') || '0')
-  await prisma.slider.delete({ where: { id } })
+  const { error } = await supabase.from('Slider').delete().eq('id', id)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ success: true })
 }

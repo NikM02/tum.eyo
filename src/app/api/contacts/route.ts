@@ -1,22 +1,25 @@
-import { prisma } from '@/lib/prisma'
+import { supabase } from '@/lib/supabase'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const contacts = await prisma.contact.findMany({ orderBy: { createdAt: 'desc' } })
-  return NextResponse.json(contacts)
+  const { data, error } = await supabase.from('Contact').select('*').order('createdAt', { ascending: false })
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
 export async function POST(req: NextRequest) {
   const data = await req.json()
-  const contact = await prisma.contact.create({ data })
+  const { data: contact, error } = await supabase.from('Contact').insert([data]).select().single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(contact)
 }
 
 export async function DELETE(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const id = parseInt(searchParams.get('id') || '0')
-  await prisma.contact.delete({ where: { id } })
+  const { error } = await supabase.from('Contact').delete().eq('id', id)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ success: true })
 }

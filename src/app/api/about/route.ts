@@ -1,21 +1,26 @@
-import { prisma } from '@/lib/prisma'
+import { supabase } from '@/lib/supabase'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const about = await prisma.about.findFirst()
-  return NextResponse.json(about)
+  const { data, error } = await supabase.from('About').select('*').limit(1).single()
+  if (error && error.code !== 'PGRST116') return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
 export async function POST(req: NextRequest) {
   const data = await req.json()
-  const existing = await prisma.about.findFirst()
+  const { data: existing } = await supabase.from('About').select('id').limit(1).single()
+  
   if (existing) {
-    const about = await prisma.about.update({ where: { id: existing.id }, data })
+    const { data: about, error } = await supabase.from('About').update(data).eq('id', existing.id).select().single()
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
     return NextResponse.json(about)
   }
-  const about = await prisma.about.create({ data })
+  
+  const { data: about, error } = await supabase.from('About').insert([data]).select().single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(about)
 }
 
@@ -24,6 +29,7 @@ export async function PUT(req: NextRequest) {
   const { id, ...rest } = data
   delete rest.createdAt
   delete rest.updatedAt
-  const about = await prisma.about.update({ where: { id }, data: rest })
+  const { data: about, error } = await supabase.from('About').update(rest).eq('id', id).select().single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(about)
 }

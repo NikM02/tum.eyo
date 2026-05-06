@@ -1,14 +1,17 @@
-import { prisma } from '@/lib/prisma'
+import { supabase } from '@/lib/supabase'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  let info = await prisma.contactInfo.findFirst()
-  if (!info) {
-    info = await prisma.contactInfo.create({ data: {} })
+  let { data, error } = await supabase.from('ContactInfo').select('*').limit(1).single()
+  if (error && error.code === 'PGRST116') {
+    const { data: newData, error: insertError } = await supabase.from('ContactInfo').insert([{}]).select().single()
+    if (insertError) return NextResponse.json({ error: insertError.message }, { status: 500 })
+    return NextResponse.json(newData)
   }
-  return NextResponse.json(info)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
 export async function PUT(req: NextRequest) {
@@ -16,11 +19,16 @@ export async function PUT(req: NextRequest) {
   const { id: _id, ...rest } = data
   delete rest.createdAt
   delete rest.updatedAt
-  const existing = await prisma.contactInfo.findFirst()
+  
+  const { data: existing } = await supabase.from('ContactInfo').select('id').limit(1).single()
+  
   if (existing) {
-    const info = await prisma.contactInfo.update({ where: { id: existing.id }, data: rest })
+    const { data: info, error } = await supabase.from('ContactInfo').update(rest).eq('id', existing.id).select().single()
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
     return NextResponse.json(info)
   }
-  const info = await prisma.contactInfo.create({ data: rest })
+  
+  const { data: info, error } = await supabase.from('ContactInfo').insert([rest]).select().single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(info)
 }
